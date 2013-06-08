@@ -1,0 +1,95 @@
+/* -------------------------------------------------------------------------------- Header */
+
+#header {
+	margin:0 auto;
+    padding:0 30px;
+	min-height:184px;
+    width:940px;
+	background:#ffffff;
+}
+
+.header_inner {
+	position:relative;
+	margin:0 auto;
+	width:940px;
+}
+
+.logo {
+	position:absolute;
+    top:30px;
+    left:0;
+	display:block;
+	width:190px;
+	height:69px;
+}
+
+.social_block {
+	position:absolute;
+	top:0;
+	right:-10px;
+	z-index:300;
+	width:220px;
+}
+
+.social_block ul {
+	overflow:hidden;
+	margin:40px auto 0;
+	padding:0 0 5px;
+	width:100%;
+	text-align:center;
+}
+
+.social_block ul li {
+	display:inline-block;
+	margin:5px 3px 3px 4px;
+	list-style:none;
+	text-align:center;
+}
+
+.social_block ul li a {display:block;}
+
+.social_block ul li img {
+	width:30px;
+	height:30px;
+	margin:0 auto;
+}
+
+.social_block ul li span {
+	display:block;
+	margin-top:10px;
+}
+
+.social_toggle {display:none;}
+
+.social_toggle.current {
+	bottom:-20px;
+	height:20px;
+}
+
+.social_toggle span {
+	display:block;
+	height:20px;
+	background:url(../img/social_toggle.png) no-repeat scroll center top transparent;
+}
+
+.social_toggle.current span {background-position:center bottom;}
+
+.social_block ul li {
+	-webkit-transition:all .3s ease-in;
+	-moz-transition:all .3s ease-in;
+	-ms-transition:all .3s ease-in;
+	-o-transition:all .3s ease-in;
+	transition:all .3s ease-in;
+}
+
+.social_block ul li:hover {
+	-webkit-transition:all 0.02s;
+	-moz-transition:all 0.02s;
+	-ms-transition:all 0.02s;
+	-o-transition:all 0.02s;
+	transition:all 0.02s;
+}
+
+
+/* -------------------------------------------------------------------------------- Navigation */
+

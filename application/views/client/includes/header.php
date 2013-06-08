@@ -9,6 +9,7 @@
 
     <!-- Le styles -->
     <link href="<?php echo base_url() ?>bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo base_url() ?>bootstrap/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url() ?>font-awesome/css/font-awesome.min.css">
     <style type="text/css">
       body {
@@ -98,7 +99,7 @@
 
   <body>
 
-    <div class="container">
+    <div class="container" id="contain">
 
       <div class="masthead">
         <div class="row-fluid">
@@ -114,12 +115,12 @@
           <div class="navbar-inner">
             <div class="container">
               <ul class="nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Services</a></li>
-                <li><a href="#">FAQs</a></li>
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Contact</a></li>
+                <li class="active"><a href="<?php echo site_url('client/home') ?>">Home</a></li>
+                <li><a href="<?php echo site_url('client/company') ?>">About Us</a></li>
+                <li><a href="<?php echo site_url('client/company/services') ?>">Services</a></li>
+                <li><a href="<?php echo site_url('client/company/faqs') ?>">FAQs</a></li>
+                <li><a href="<?php echo site_url('client/company/register') ?>">Register</a></li>
+                <li><a href="<?php echo site_url('client/company/contact') ?>">Contact</a></li>
               </ul>
             </div>
           </div>

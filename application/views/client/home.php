@@ -2,12 +2,13 @@
   <div class="span9" id="face">
   	<!-- Jumbotron -->
       <div class="jumbotron">
-     <h1>PayPal-Mpesa</h1>
+     <h1>PayPesa</h1><h2>PayPal easy WithdrawalS</h2>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <a class="btn btn-large btn-success" href="#">Get started today</a>
       </div>
   </div>
   <div class="span3">
+  	<div class="log"><i class="icon-user icon-large"></i> LOGIN</div>
   	<div class="login">
   		<form class="">
 		  <div class="control-group">
@@ -34,31 +35,17 @@
 		</form>
   	</div>
   	<form>
+  		<div class="calchead"><i class="icon-keyboard icon-large"></i> CALCULATOR</div>
   	<div class="calculator">
-  		<table class="table table-hover">
-		  <tbody>
-		  	<tr>
-		    <th>AMOUNT</th>
-		    </tr>
-		    <tr>
-		      <td><input type="text" id="field1" name="field1"></td>
-		    </tr>
-		    <tr>
-		      <th>RECEIVED</th>
-		    </tr>
-		    <tr>
-		      <td><input type="text" id="field2" name="field2"></td>
-		    </tr>
-		    <tr>
-		      <th><input type="button" value="Calculate To MPesa" name="form[Calculate]" id="Calculate" onclick="calculateText();" class="rsform-button" />	
-</th>
-		    </tr>
-		    <tr>
-		      <td><input type="text" id="Total" name="Total">
-</td>
-		    </tr>
-		  </tbody>
-		</table>
+  		
+  		<div>AMOUNT</div>
+  		<div><input type="text" id="field1" name="field1"></div>
+  		<div>RECEIVED</div>
+  		<div><input type="text" id="field2" name="field2"></div>
+		<div><input type="button" value="Calculate To MPesa" name="form[Calculate]" id="Calculate" onclick="calculateText();" class="rsform-button" /></div>
+		<div><input type="text" id="Total" name="Total"></div>
+  	
+ 
   	</div>
   	</form>
   </div>
