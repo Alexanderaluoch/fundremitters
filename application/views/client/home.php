@@ -50,7 +50,6 @@
   	</form>
   </div>
 </div>
-<hr>
 
 <script type="text/javascript">
 

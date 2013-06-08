@@ -19,6 +19,16 @@ class Company extends CI_Controller {
 		$data['main_content']='client/services';
 		$this->load->view('client/includes/template',$data);
 	}
+	public function userpage()
+	{
+		$data['main_content']='client/userpage';
+		$this->load->view('client/includes/template',$data);
+	}
+	public function register()
+	{
+		$data['main_content']='client/register';
+		$this->load->view('client/includes/template',$data);
+	}
 	public function contact()
 	{
 		$data['main_content']='client/contact';

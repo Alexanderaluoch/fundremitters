@@ -103,7 +103,7 @@
 
       <div class="masthead">
         <div class="row-fluid">
-          <div class="span9"> <h3 class="muted">FUND REMITTERS</h3></div>
+          <div class="span9"> <h3 class="muted">FUND REMITTERS</h3><a href="<?php echo site_url('client/company/userpage') ?>">Userpage Link</a></div>
           <div class="span3"><p>
             <i class="icon-facebook-sign icon-2x"></i>
             <i class="icon-twitter-sign icon-2x"></i> 

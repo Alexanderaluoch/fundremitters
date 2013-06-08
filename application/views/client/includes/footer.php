@@ -1,7 +1,20 @@
 
 
       <div class="footer">
-        <p> &copy; Built by Sunsmart Solutions 2013</p>
+		<div class="row">
+		  <div class="span3">&copy; Built by Sunsmart Solutions 2013</div>
+		  <div class="span9">
+		  	<ul id="footer_nav" class="footer_nav">
+						<li><a href="<?php echo site_url('client/home') ?>">Home</a></li>
+						<li><a href="<?php echo site_url('client/company') ?>">About</a></li>
+						<li><a href="<?php echo site_url('client/company') ?>">Services</a></li>
+						<li><a href="<?php echo site_url('client/company') ?>">FAQs</a></li>
+						<li><a href="<?php echo site_url('client/company') ?>">Contacts</a></li>
+					</ul>
+		   </div>
+		</div>
+       
+
       </div>
 
     </div> <!-- /container -->

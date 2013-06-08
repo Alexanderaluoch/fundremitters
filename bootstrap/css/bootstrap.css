@@ -4380,7 +4380,8 @@ input[type="submit"].btn.btn-mini {
 
 .navbar-inner {
   min-height: 40px;
- 
+  padding-right: 20px;
+  padding-left: 20px;
   background-color: #495459;
   background-repeat: repeat-x;
   box-shadow: 0 5px 2px -3px rgba(0, 0, 0, 0.3);
@@ -6202,4 +6203,42 @@ background-repeat:repeat-x;
     top: 117px;
     width: 100%;
     z-index: 10;
+  }
+  .footer{
+    background-color: #495459;
+  background-repeat: repeat-x;
+  box-shadow: 0 5px 2px -3px rgba(0, 0, 0, 0.3);
+  margin-left: -10px;
+   margin-right: -10px;
+    margin-bottom: -20px;
+    padding: 50px;
+     color: #ffffff;
+     height: 60px;
+  }
+  .footer a {
+    color: #ffffff;
+  }
+  .footer a:hover {
+    color: #33BEE5;
+    text-decoration: none;
+  }
+
+.footer .footer_nav ul {display:none;}
+
+.footer .footer_nav > li {
+  display:block;
+  float:right;
+  padding-left:20px;
+}
+.bar
+{
+   background-color:#33BEE5;
+   padding: 10px;
+    box-shadow: 0 5px 2px -3px rgba(0, 0, 0, 0.3);
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+a:hover {
+    color: #33BEE5;
+    text-decoration: none;
   }
