@@ -2,7 +2,7 @@
   <div class="span9" id="face">
   	<!-- Jumbotron -->
       <div class="jumbotron">
-     <h1>PayPesa</h1><h2>PayPal easy WithdrawalS</h2>
+     <h1>PesaPay</h1><h2>PayPal easy WithdrawalS</h2>
         <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
         <a class="btn btn-large btn-success" href="#">Get started today</a>
       </div>
