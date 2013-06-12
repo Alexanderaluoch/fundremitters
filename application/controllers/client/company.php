@@ -26,7 +26,13 @@ class Company extends CI_Controller {
 	}
 	public function register()
 	{
-		$data['main_content']='client/register';
+		$data['main_content']='client/register';		
+
+		// Loading the Country model
+		$this->load->model('countries','countries');
+		// Sending the drop down list to the view
+		$data['countries'] = $this->countries->get_dropdownlist();
+
 		$this->load->view('client/includes/template',$data);
 	}
 	public function contact()

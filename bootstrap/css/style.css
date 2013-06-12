@@ -90,6 +90,34 @@
 	transition:all 0.02s;
 }
 
+/*css used in the registration form*/
+label.valid {
+  width: 24px;
+  height: 24px;
+  background: url(../../img/icons/valid.png) no-repeat;
+  display: inline-block;
+  text-indent: -9999px;
+  margin-left: 5px;
+}
+label.error {
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+
+/* Custom styles for country drop down */
+#registration{
+	padding-right: 0px;
+}
+#registration legend{
+	margin-bottom: 2px;
+}
+
+.dropdown-menu{
+ max-width: 300px;
+ max-height:300px;
+ overflow: auto;
+}
 
 /* -------------------------------------------------------------------------------- Navigation */
 
