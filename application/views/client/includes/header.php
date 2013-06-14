@@ -111,18 +111,18 @@
           </p></div>
        </div>
        
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul class="nav">
-                <li class="active"><a href="<?php echo site_url('client/home') ?>">Home</a></li>
-                <li><a href="<?php echo site_url('client/company') ?>">About Us</a></li>
-                <li><a href="<?php echo site_url('client/company/services') ?>">Services</a></li>
-                <li><a href="<?php echo site_url('client/company/faqs') ?>">FAQs</a></li>
-                <li><a href="<?php echo site_url('client/company/register') ?>">Register</a></li>
-                <li><a href="<?php echo site_url('client/company/contact') ?>">Contact</a></li>
-              </ul>
-            </div>
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav">
+              <li class="active"><a href="<?php echo site_url('client/home') ?>">Home</a></li>
+              <li><a href="<?php echo site_url('client/company') ?>">About Us</a></li>
+              <li><a href="<?php echo site_url('client/company/services') ?>">Services</a></li>
+              <li><a href="<?php echo site_url('client/company/faqs') ?>">FAQs</a></li>
+              <li><a href="<?php echo site_url('client/company/register') ?>">Register</a></li>
+              <li><a href="<?php echo site_url('client/company/contact') ?>">Contact</a></li>
+            </ul>
           </div>
-        </div><!-- /.navbar -->
-      </div>
+        </div>
+      </div><!-- /.navbar -->
+    </div>

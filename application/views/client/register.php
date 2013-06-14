@@ -1,7 +1,10 @@
     <div class ="row-fluid">
       <div class="well span5" id="registration">
-        <form class="form-vertical" id="registration_form" method="post" action="">
-      
+        <form class="form-vertical" id="registration_form" method="post" action="<?php echo base_url();?>index.php/client/register">
+        <?php if(isset($disp_error)){?>
+        <div class="alert alert-error"><?php echo $disp_error; ?></div>
+         <?php }?>
+
         <legend>Fill in your details:</legend>
         <div class="control-group">
           <div class="controls"> 
@@ -56,7 +59,7 @@
 
               </div>
               
-              <input class="input-block-level input-medium calling_code popovers" type="text" value="+254" name="phone_number" id="prependedDropdownButton" data-content="A verification code will be sent to verify your mobile number" title="Notice:"> 
+              <input class="input-block-level input-medium calling_code popovers" type="text" value="+254" name="mobile_number" id="prependedDropdownButton" data-content="A verification code will be sent to verify your mobile number" title="Notice:"> 
             </div>
         </div>
       </div>

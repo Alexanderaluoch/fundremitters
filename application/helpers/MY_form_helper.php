@@ -29,7 +29,7 @@ function country_dropdown($countries, $name="countries", $top_countries=array(),
         $calling_code=$countries[$value]['calling_code'];
         $name=$countries[$value]['name'];
         
-        $html .= "<option value='{$calling_code}' {$selected}>&nbsp;{$name}</option>";
+        $html .= "<option value='{$value}' {$selected}>&nbsp;{$name}</option>";
         $html2 .= "<a id='+{$calling_code}'>{$image}&nbsp;{$name} &nbsp; +{$calling_code}</a>";
 
         $selected = NULL;
@@ -54,7 +54,7 @@ function country_dropdown($countries, $name="countries", $top_countries=array(),
                             );
       $image=img($imageproperties);
 
-      $html .= "<option value='{$calling_code}' {$selected}>&nbsp;{$name}</option>";
+      $html .= "<option value='{$key}' {$selected}>&nbsp;{$name}</option>";
       $html2 .= "<a id='+{$calling_code}'>{$image}&nbsp;{$name}&nbsp; +{$calling_code}</a>";
       $selected = NULL;
     }

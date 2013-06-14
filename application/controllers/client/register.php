@@ -1,76 +1,31 @@
 <?
-class MyStore extends CI_Controller {
-	function MyStore(){
+/**
+ * Example
+ *
+ * This is an example of a few basic user interaction methods you could use
+ * all done with a hardcoded array.
+ *
+ * @package		CodeIgniter
+ * @subpackage	Rest Server
+ * @category	Controller
+ * @author		Tom Kimani adopted from Ezauth
+ * @link		http://tomkimani.wordpress.com/
+*/
+
+require APPPATH.'/libraries/AfricasTalkingGateway.php';
+
+class Register extends CI_Controller {
+	function Register(){
         parent::__construct();
         $this->load->model('EzAuth_Model','ezauth');	
-        $this->ezauth->program = 'mystore';
-
-		//new in 0.6
-		//if user has a cookie hash saved, ezauth can use it to login automatically
-		//must have cookie helper enabled
-		$this->ezauth->auto_login();
-
-        $this->ezauth->protected_pages = array(
-            'client'    	 	=>    	'user',			     //	user must be logged in to view page
-            'admin'   			=>    	'admin',			//	user must be administrator to view page
-            'custom_page'  		=>    	'store_manager',	//	user defined value
-			'changepw'			=>		'user'
-        );
     }
-	
+		
 	function index() {
-		$this->load->view('home');
-	}
-	
-	//	new remap function in 0.6, method is called including arguments now.	
-	//  Used authorizes transactions by redirecting all functions to one common function
-	function _remap($method) {
-	        $auth = $this->ezauth->authorize($method, true);
-	        if ($auth['authorize'] == true) {
-				//	redirect with method arguments
-				//	by marlar on CodeIgniter forums
-				$segments = array_slice($this->uri->segment_array(),2);
-				call_user_func_array(array(&$this, $method), $segments);
-	        } else {
-	            // user login information incorrect, so show login screen again
-	            redirect('mystore/login');
-	        }
-	}
-	
-	function client() {
-		$this->load->view('client_view');
-	}
-	
-	function admin() {
-		$this->load->view('admin_view');
-	}
-	
-	function login($data = array()) {
-	        
-	        // set required fields for validation
-	        $rules['username'] = "required";
-	        $this->validation->set_rules($rules);
-	        $fields['username'] = "Username";
-	        $this->validation->set_fields($fields);
-			
-	        // if post variables are set, run validation
-	        if ($this->validation->run()) {
-	            $login_ok = $this->ezauth->login();    // $login_ok is true or false depending on user login information
-	            if ($login_ok['authorize'] == true) {
-					$this->ezauth->remember_user();		// store cookie hash for auto-login
-					redirect('mystore');    		// if user logs in successfully, redirect to main page
-				} else {
-					$data['error_string'] = $login_ok['error'];
-				}
-
-	        }
-			$this->load->view('login_view',$data);
-	}
-	
-	function register() {
 		$data = array();
+
+		/*
 		$rules = array(
-			'username'		=>	'trim|required|min_length[5]|max_length[30]',
+//			'username'		=>	'trim|required|min_length[5]|max_length[30]',
 			'email'			=>	'trim|required|valid_email',
 			'password'		=>	'required|matches[password2]',
 			'password2'		=>	'required',
@@ -78,7 +33,7 @@ class MyStore extends CI_Controller {
 			'last_name'		=>	'trim'
 		);
 		$fields = array(
-			'username'		=>	'Username',
+//			'username'		=>	'Username',
 			'email'			=>	'E-mail address',
 			'password'		=>	'Password',
 			'password2'		=>	'Password Confirmation',
@@ -86,48 +41,62 @@ class MyStore extends CI_Controller {
 			'last_name'		=>	'Last Name'
 		);
 		$this->validation->set_rules($rules);
-		$this->validation->set_fields($fields);
-		if ($this->validation->run()) {
-			$inp = array(
-				'ez_users'	=>	array(
-					'username'		=>	$this->input->post('username'),		//	**	required field!!
-					'first_name'	=>	$this->input->post('first_name'),	//	**	not a default ezauth field!
-					'last_name'		=>	$this->input->post('last_name'),	//	**	not a default ezauth field!
-					'email'			=>	$this->input->post('email')			//	**	only required if using verification
-				),
-				'ez_access_keys' => array(			//	new in 0.6	- multiple access keys can be given now during registration
-					'mystore'	=>	'user',
-					'ezboard'	=>	'user',
-					'ezblog'	=>	'user',
-				),
-				'password'	=>	$this->input->post('password'),
-			);
-			
-			$verify_yesno = ($this->input->post('verify')) ? true : false;
-			$user_reg = $this->ezauth->register($inp, $verify_yesno);	//	verify parameter set to true, so verification code will be returned, which can be sent to user
-			if ($user_reg['reg_ok'] == 'yes' && $verify_yesno == true) {
-				$v_code = $user_reg['code'];
-
-				//	send user e-mail with verification code.
-				$message = '<p>This e-mail address was used to sign up on {My Website}. To begin using {My Website}, you must verify your e-mail
-				address by clicking the link below or copying it and pasting it into your browser.</p><p>{unwrap}<a href="http://bizwidgets.biz/demos/ezauth/mystore/verify/'.$v_code.'" 
-				title="Verify your e-mail address">http://bizwidgets.biz/demos/ezauth/mystore/verify/'.$v_code.'{/unwrap}</a></p>';
-				
-				$this->_send_mail($inp['ez_users']['email'], 'Verify your e-mail address!', $message);
-				
-			}
-			if ($user_reg['reg_ok'] == 'yes') {
-				redirect('mystore/reg_ok');
-			} else {
-				$data['disp_error'] = 'Error. EzAuth response:<br />' . $user_reg['error'];
-			}
-		}
 		
-		$this->load->view('register_view', $data);
+		if ($this->validation->run()) {
+		*/
+		
+		$inp = array(
+			'ez_users'	=>	array(
+				'first_name'	=>	$this->input->post('first_name'),	//	**	not a default ezauth field!
+				'last_name'		=>	$this->input->post('last_name'),	//	**	not a default ezauth field!
+				'email'			=>	$this->input->post('email'),		//	**	only required if using verification
+       		    'mobile_number' =>  $this->input->post('mobile_number'), //  **  only required if using verification
+       		    'country_code'		=>  $this->input->post('countries') 	//  
+			),
+			'ez_access_keys' => array(			//	new in 0.6	- multiple access keys can be given now during registration
+				'userhome'	=>	'user',
+			),
+			'password'	=>	$this->input->post('password'),
+		);
+			
+		$verify_yesno=true;
+		
+		$user_reg = $this->ezauth->register($inp, $verify_yesno);	//	verify parameter set to true, so verification code will be returned, which can be sent to user
+		
+		if ($user_reg['reg_ok'] == 'yes' && $verify_yesno == true) {
+			
+			/*---------------EMAIL CODE ------------------------------------------*/
+			$v_code = $user_reg['email_code'];
+			//	send user e-mail with verification code.
+			$message = '<p>This e-mail address was used to sign up on {My Website}. To begin using {My Website}, you must verify your e-mail
+			address by clicking the link below or copying it and pasting it into your browser.</p><p>{unwrap}<a href="http://bizwidgets.biz/demos/ezauth/mystore/verify/'.$v_code.'" 
+			title="Verify your e-mail address">http://bizwidgets.biz/demos/ezauth/mystore/verify/'.$v_code.'{/unwrap}</a></p>';
+			
+			$this->_send_mail($inp['ez_users']['email'], 'Verify your e-mail address!', $message);
+
+			/*-----------------SMS CODE ************************************/
+			$v_code = $user_reg['email_code'];
+			//	send sms to user with the verification code.
+			$message_sms = 'Your PesaPay verification code is '.strtoupper($v_code).'.Enter this code on the verification screen provided. Thank-you for registering with us.';           
+            $this->_send_sms($inp['ez_users']['mobile_number'],  $message_sms); 			
+		}
+
+		if ($user_reg['reg_ok'] == 'yes') {
+			redirect('mystore/reg_ok');
+		} else {
+			$data['disp_error'] = 'Error. Address the following issues to continue:<br />' .$user_reg['error'];
+		}	   
+		
+		$data['main_content']='client/register';		
+
+		// Loading the Country model
+		$this->load->model('countries','countries');
+		// Sending the drop down list to the view
+		$data['countries'] = $this->countries->get_dropdownlist();
+
+		$this->load->view('client/includes/template',$data);
 	}
 
-	
-	
 	function reg_ok() {
 		$this->load->view('reg_ok_view');
 	}
@@ -144,12 +113,34 @@ class MyStore extends CI_Controller {
 
 		$this->email->send();
 	}
-	
-	function logout() {
-		$this->ezauth->logout();
-		redirect('mystore');
-	}
-	
+
+	//----------Function to send sms-------------------
+    function _send_sms($recipient,$message){
+        // Specify your login credentials
+        $username    = "TomKim";
+        $apiKey      = "1473c117e56c4f2df393c36dda15138a57b277f5683943288c189b966aae83b4"; 
+
+        // Create a new instance of our awesome gateway class
+        $gateway  = new AfricaStalkingGateway($username, $apiKey);
+
+        // Thats it, hit send and we'll take care of the rest
+        $results  = $gateway->sendMessage($recipient, $message);
+        if ( count($results) ) {
+          // These are the results if the request is well formed
+          foreach($results as $result) {
+         /*   echo " Number: " .$result->number;
+            echo " Status: " .$result->status;
+            echo " Cost: "   .$result->cost."\n";*/
+          }
+        } else {
+            // We only get here if we cannot process your request at all
+            // (usually due to wrong username/apikey combinations)
+            echo "Oops, No messages were sent. ErrorMessage: ".$gateway->getErrorMessage();
+        }
+        // DONE!!!
+    }
+
+		
 	function verify() {
 		if ($this->ezauth->verify_email($this->uri->segment(3)) == true) {
 			$this->load->view('verify_ok');
