@@ -36,8 +36,7 @@ var $user		 			=	array();	//	user info in database
 		if (empty($this->user)) {
 			$cookie_hash = get_cookie('ezauth_user_info', TRUE);
 			if (!empty($cookie_hash)) $result = $this->login(null, null, true, $cookie_hash);
-			if (!empty($result)) if ($result['authorize'] == true) return true;
-			
+			if (!empty($result)) if ($result['authorize'] == true) return true;		
 		}
 	}
 	
@@ -53,24 +52,30 @@ var $user		 			=	array();	//	user info in database
 	//can call login() and use default POST mobile_number and POST password or use parameters login('mobile_number here', 'password here');
 	//new in 0.6 - can login from cookie hash
 
-	function login($un = null, $pw = null, $give_new_key = false, $cookie_hash = '', $get_all_user_info = true) {
-		$un = (empty($un)) ? $this->input->post('mobile_number') : $un;
+	function login($un = null, $pw = null, $give_new_key = false, $cookie_hash ='', $get_all_user_info = true) {
+		$un = (empty($un)) ? $this->input->post('username') : $un;
 		$pw = (empty($pw)) ? $this->input->post('password') : $pw;
-	 	
+
+
 	 	//-------This is the select statement -----------
 	 	if ($get_all_user_info == false) {
 			$this->db->select('ez_users.id');
 		} 
 		else {
-			$this->db->select('ez_users.id as id, ez_users.*, ez_auth.activation_code');
+			$this->db->select('ez_users.id as id, ez_users.*, ez_auth.sms_activationcode');
 		}
 
-		// ----If we have a cookie hash,Use It else use the Mobile/password Pair -------------------
+		// ----If we have a cookie hash,Use It else use the Username/password Pair -------------------
 		if (empty($cookie_hash)) {
 			$this->db->join('ez_auth', 'ez_auth.user_id = ez_users.id');
-			$query = $this->db->get_where('ez_users', array('lower(mobile_number)' => strtolower($un), 'password' => $this->_add_salt($pw)));
+			$query = $this->db->get_where('ez_users', array('lower(email)' => strtolower($un), 'password' => $this->_add_salt($pw)));
+		
+		/*	
+		echo "<br/>executed without Cookie!";
+		*/
+
 		} else {
-			/*This wont be executed for FlexiPay as we aren't logging in with a cookie -----*/
+			/*This will be executed -----*/
 			$this->db->join('ez_users', 'ez_auth.user_id = ez_users.id', 'left');
 			$query = $this->db->get_where('ez_auth', array('cookie_hash' => $cookie_hash));
 		}
@@ -79,7 +84,7 @@ var $user		 			=	array();	//	user info in database
 			$userdata = $query->row();
 			//	check to see if user's account has been activated:--> This is a Back-up Measure
 			$v_code = md5(md5($userdata->mobile_number).md5($userdata->email).md5($userdata->register_date));
-			if ($userdata->activation_code != $v_code) return array('authorize' => false, 'error' => 'Account not active.', 'code'	=>	'not_active');
+			if ($userdata->sms_activationcode != $v_code) return array('authorize' => false, 'error' => 'Account not active.', 'code'	=>	'not_active');
 			
 
 			//---- This is where we are giving the user an access key for different parts of the app ----------
@@ -121,6 +126,7 @@ var $user		 			=	array();	//	user info in database
 			$result = $query->row();
 			$account_balance = $result->account_balance;
 
+			/*
 			//Get the Names of the Customer to be stored in the Session
 			$full_names=$this->get_entity_name($ez->id);
 
@@ -132,7 +138,8 @@ var $user		 			=	array();	//	user info in database
 				'authorize' => true,
 				'account_balance' => $account_balance,
 				'success'=>true
-				);
+				);*/
+			$session_data['authorize']= true;
 			return $session_data;
 
 		} else {
@@ -245,7 +252,7 @@ var $user		 			=	array();	//	user info in database
 		//	convert string to lower case before finding duplicates in database
 		//	keeps original data as is
 		$mobile = strtolower($inp['ez_users']['mobile_number']);
-		$pw = $inp['password'];
+		$pw = $inp['password2'];
 		$email = strtolower($inp['ez_users']['email']);
 
 		//	check for existing Mobile Number
@@ -285,7 +292,7 @@ var $user		 			=	array();	//	user info in database
 
 		//	make very unique cookie hash for auto-login
 		$salt = microtime();
-		$cookie_hash = $this->_add_salt($user_id.$inp['password'].$email, $salt);
+		$cookie_hash = $this->_add_salt($user_id.$inp['password2'].$email, $salt);
 		
 		
 		//3. insert into ez_auth table
@@ -298,11 +305,13 @@ var $user		 			=	array();	//	user info in database
 		
 		//4. For sms & email verification
 		if ($verify == true) {
-			$v_code = $this->random_string(5);	//	temporary verification code that will be sent to sms for verification		
+			$v_code = $this->random_string(5,5);	//	temporary verification code that will be sent to sms for verification		
+			//$md5_vcode1 = $this->_add_salt($v_code);
 			$inp3['sms_activationcode'] = $v_code;
 
+
 			//Email verification
-			$v_code2 = md5(md5(microtime()).md5($this->random_string(32))); //	temporary access code that will be sent to e-mail for verification
+			$v_code2 = md5(md5(microtime()).md5($this->random_string(32,32))); //temporary access code that will be sent to e-mail for verification
 			$md5_vcode = $this->_add_salt($v_code2);
 			$inp3['email_activationcode'] = $md5_vcode;
 		} 
@@ -330,7 +339,7 @@ var $user		 			=	array();	//	user info in database
 			$this->login(null, null, false, $cookie_hash);
 		}
 
-		return array('reg_ok'=>'yes','sms_code'=>$v_code, 'email_code'=>$v_code2, 'user_id' => $user_id);		
+		return array('reg_ok'=>'yes','sms_code'=>$v_code, 'email_code'=>$md5_vcode, 'user_id' => $user_id);		
 }
 	
 	//	v 0.3
@@ -338,22 +347,21 @@ var $user		 			=	array();	//	user info in database
 	when user clicks link in e-mail, database will change user authorization_code to a md5 hash that will be matched on login
 	** new login after verification setting, GIVE NEW KEY IS SET TO FALSE SO A KEY MUST BE ALREADY SET FOR CURRENT PROGRAM IF AUTO-LOGIN IS SET TO TRUE
 	*/
-	function verify_phone($code, $login_after_verify = false) {
+	function verify_sms($code, $login_after_verify = false) {
 		$code = trim($code);
 		if (empty($code)) return false;
-		//$salty_code = $this->_add_salt($code); //My Code is not being salted
-
+		//$salty_code = $this->_add_salt($code); 
 		//get data for updating tables and auto-login if desired
 		$this->db->select('ez_users.id, ez_users.mobile_number, ez_users.email, ez_users.register_date, ez_auth.cookie_hash');
 		$this->db->join('ez_users', 'ez_users.id = ez_auth.user_id', 'left');
-		$query = $this->db->get_where('ez_auth', array('activation_code' => $code));
+		$query = $this->db->get_where('ez_auth', array('sms_activationcode' => $code));
 		if ($query->num_rows() == 1) {
 			$user = $query->row();			
 			$v_code = md5(md5($user->mobile_number).md5($user->email).md5($user->register_date));
 			
 			//	update ez_auth table with new hash code
-			$this->db->where('activation_code', $code);
-			$this->db->update('ez_auth', array('activation_code' => $v_code));
+			$this->db->where('sms_activationcode', $code);
+			$this->db->update('ez_auth', array('sms_activationcode' => $v_code));
 			
 			if ($login_after_verify)
 				return $this->login(null, null, false, $user->cookie_hash);		//	login by cookie hash
@@ -367,15 +375,16 @@ var $user		 			=	array();	//	user info in database
 	
 	//	v 0.2
 	// used for generating random authorization codes and temporary passwords
-	function random_string($length= 4) {  
+	function random_string($top=32, $length= 4) {  
 	    // Generate random 4 character string
 	    $string = md5(microtime());
 
 	    // Position Limiting
-	    $highest_startpoint = 32-$length;
+	    $highest_startpoint = $top-$length;
 
 	    // Take a random starting point in the randomly
 	    // Generated String, not going any higher then $highest_startpoint
+
 	    $randomString = substr($string,rand(0,$highest_startpoint),$length);
 
 	    return $randomString;

@@ -5,9 +5,6 @@
   </div>
   <div class="span10">
     <div class="container-narrow">
-
-      
-
       <hr>
      
 <div class="accordion" id="accordion2">

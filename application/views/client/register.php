@@ -1,4 +1,5 @@
-    <div class ="row-fluid">
+    <div class ="row-fluid register">
+      <hr/>
       <div class="well span5" id="registration">
         <form class="form-vertical" id="registration_form" method="post" action="<?php echo base_url();?>index.php/client/register">
         <?php if(isset($disp_error)){?>
@@ -86,22 +87,22 @@
         </form>
       </div>
       
-      <div class="span7">
-        <h3>Create a New PesaPay Account</h3>
+      <div class="span6">
+        <h4>Step 1:Account Registration</h4>
           <hr/>
           <div class="">
-            <h5><i class="icon icon-globe"></i> Feature 1</h5>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+            <h5><i class="icon-large icon-money"></i>&nbsp Affordable</h5>  
+            <p>Only a small fee charged per transaction,free to sign up, no fixed fees. <a data-toggle="tooltip" title="" class="feature-1" href="#feature-1">Learn more</a> </p>
           </div>
           
           <div class="">
-            <h5><i class="icon icon-globe"></i> Feature 2</h5>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+            <h5><i class="icon-large icon-lock"></i>&nbsp Secure</h5> 
+            <p>Fundremitters operates within the trusted MPESA & Paypal platform hence secure. <a data-toggle="tooltip" title="Learn more about security" class="feature-1" href="#feature-1">Learn more</a></p>
           </div>
          
           <div class="">
-            <h5><i class="icon icon-globe"></i> Feature 3</h5>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
+            <h5><i class="icon-large icon-mobile-phone"></i>&nbsp Convinient</h5>
+            <p>1-click money transfer to & from your PayPal OR MPESA Account with no-hassles involved. <a data-toggle="tooltip" title="" class="feature-1" href="#feature-1">Learn more</a></p>
           </div>
       </div>
   </div>

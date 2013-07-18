@@ -1,87 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>FUND &middot; REMITTERS SERVICE</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
+      <meta charset="utf-8">
+      <title>FUND &middot; REMITTERS</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="Fund-remitters is a service which enables PesaPal to Mobile Money cash transfers..">
+      <meta name="author" content="SunSmart Solutions">
 
     <!-- Le styles -->
-    <link href="<?php echo base_url() ?>bootstrap/css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo base_url() ?>bootstrap/css/style.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="<?php echo base_url()?>bootstrap/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo base_url() ?>font-awesome/css/font-awesome.min.css">
-    <style type="text/css">
-      body {
-        padding-top: 20px;
-        padding-bottom: 60px;
-      }
 
-      /* Custom container */
-      .container {
-        margin: 0 auto;
-        max-width: 1000px;
-      }
-      .container > hr {
-        margin: 60px 0;
-      }
-
-      /* Main marketing message and sign up button */
-      .jumbotron {
-        margin: 80px 0;
-        text-align: center;
-      }
-      .jumbotron h1 {
-        font-size: 100px;
-        line-height: 1;
-      }
-      .jumbotron .lead {
-        font-size: 24px;
-        line-height: 1.25;
-      }
-      .jumbotron .btn {
-        font-size: 21px;
-        padding: 14px 24px;
-      }
-
-      /* Supporting marketing content */
-      .marketing {
-        margin: 60px 0;
-      }
-      .marketing p + h4 {
-        margin-top: 28px;
-      }
-
-
-      /* Customize the navbar links to be fill the entire space of the .navbar */
-      .navbar .navbar-inner {
-        padding: 0;
-      }
-      .navbar .nav {
-        margin: 0;
-        display: table;
-        width: 100%;
-      }
-      .navbar .nav li {
-        display: table-cell;
-        width: 1%;
-        float: none;
-      }
-      .navbar .nav li a {
-        font-weight: bold;
-        text-align: center;
-        border-left: 1px solid rgba(255,255,255,.75);
-        border-right: 1px solid rgba(0,0,0,.1);
-      }
-      .navbar .nav li:first-child a {
-        border-left: 0;
-        border-radius: 3px 0 0 3px;
-      }
-      .navbar .nav li:last-child a {
-        border-right: 0;
-        border-radius: 0 3px 3px 0;
-      }
-    </style>
     <link href="<?php echo base_url() ?>bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -92,37 +22,67 @@
     <!-- Fav and touch icons -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<?php echo base_url() ?>ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url() ?>ico/apple-touch-icon-114-precomposed.png">
-      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url() ?>ico/apple-touch-icon-72-precomposed.png">
-                    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url() ?>ico/apple-touch-icon-57-precomposed.png">
-                                   <link rel="shortcut icon" href="<?php echo base_url() ?>ico/favicon.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url() ?>ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="<?php echo base_url() ?>ico/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="<?php echo base_url() ?>ico/favicon.png">
   </head>
 
   <body>
+      <header>
+          <div class="row top">
+              <div class="span3 logo">
+                  <a class="brand" href="<?php echo base_url()?>"><img src="<?php echo base_url()?>img/Logo/fundremitters.png"></a>
+              </div>
+              
+              <?php
+              $segment = $this->uri->segment(3);
+              $segment_userpage = $this->uri->segment(1);
+              if ($segment=="userpage" || $segment_userpage=="userpage"){
+              //Only Shows in a Logged In user Pages 
+               ?>
+              <div class="span8 sign-in">
+                    <div class="user-actions row pull-right">
+                      <div class="span2"><strong> Welcome: &nbsp</strong><a href="#">Tom Kimani</a></div>
+                      <div class="span2"><a href=""><i class="icon-off icon-large"></i>&nbsp Logout</a></div>
+                    </div>
+              </div>
 
-    <div class="container" id="contain">
+              <?php }//Only Show in the Register Page
+              else if ($segment == 'register'){
+              ?>
+              <div class="span8 sign-in">
+                   <a class="btn btn-primary pull-right" href="<?php echo base_url();?>/index.php/client/company/login">SIGN IN</a>
+                   <strong class="pull-right">Already have an account &nbsp </strong>
+              </div>
 
-      <div class="masthead">
-        <div class="row-fluid">
-          <div class="span9"> <h3 class="muted">FUND REMITTERS</h3><a href="<?php echo site_url('client/company/userpage') ?>">Userpage Link</a></div>
-          <div class="span3"><p>
-            <i class="icon-facebook-sign icon-2x"></i>
-            <i class="icon-twitter-sign icon-2x"></i> 
-            <i class="icon-google-plus-sign icon-2x"></i>
-          </p></div>
-       </div>
-       
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav">
-              <li class="active"><a href="<?php echo site_url('client/home') ?>">Home</a></li>
-              <li><a href="<?php echo site_url('client/company') ?>">About Us</a></li>
-              <li><a href="<?php echo site_url('client/company/services') ?>">Services</a></li>
-              <li><a href="<?php echo site_url('client/company/faqs') ?>">FAQs</a></li>
-              <li><a href="<?php echo site_url('client/company/register') ?>">Register</a></li>
-              <li><a href="<?php echo site_url('client/company/contact') ?>">Contact</a></li>
-            </ul>
+
+              <?php }
+              //Only Show in the Log In Page
+              else if ($segment=='login'){
+               ?>
+              <div class="span8 sign-in">
+                  <a class="btn btn-primary pull-right" href="<?php echo base_url();?>/index.php/client/company/register">SIGN UP</a>
+                  <strong class="pull-right">Don't have an Account? &nbsp </strong>
+              </div> 
+               
+               <?php }else{
+                //Only Show in the website home pages
+                ?>
+                <div class="span5">
+                 <ul class="nav nav-pills pull-right">
+                  <li class="active"><a href="<?php echo site_url('client/home') ?>">Home</a></li>
+                  <li><a href="<?php echo site_url('client/company') ?>">How It Works</a></li>
+                  <li><a href="<?php echo site_url('client/company') ?>">Pricing</a></li>
+                  <li><a href="<?php echo site_url('client/company/faqs') ?>">FAQs</a></li>
+                </ul>
+               </div>
+
+               <div class="span3 sign-in">
+                   <a class="btn btn-primary pull-right" href="<?php echo base_url();?>/index.php/client/company/login">SIGN IN</a>
+              </div>
+              <?php }?>
+
           </div>
-        </div>
-      </div><!-- /.navbar -->
-    </div>
+      </header>
+
+

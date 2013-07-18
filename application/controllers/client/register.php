@@ -56,7 +56,7 @@ class Register extends CI_Controller {
 			'ez_access_keys' => array(			//	new in 0.6	- multiple access keys can be given now during registration
 				'userhome'	=>	'user',
 			),
-			'password'	=>	$this->input->post('password'),
+			'password2'	=>	$this->input->post('password2'),
 		);
 			
 		$verify_yesno=true;
@@ -68,33 +68,32 @@ class Register extends CI_Controller {
 			/*---------------EMAIL CODE ------------------------------------------*/
 			$v_code = $user_reg['email_code'];
 			//	send user e-mail with verification code.
-			$message = '<p>This e-mail address was used to sign up on {My Website}. To begin using {My Website}, you must verify your e-mail
-			address by clicking the link below or copying it and pasting it into your browser.</p><p>{unwrap}<a href="http://bizwidgets.biz/demos/ezauth/mystore/verify/'.$v_code.'" 
-			title="Verify your e-mail address">http://bizwidgets.biz/demos/ezauth/mystore/verify/'.$v_code.'{/unwrap}</a></p>';
+			$message_email = '<p>This e-mail address was used to sign up on PesaPay. To begin using PesaPay, you must verify your e-mail
+			address by clicking the link below or copying it and pasting it into your browser.</p><p>{unwrap}<a href="http://localhost/register/verify/'.$v_code.'" 
+			title="Verify your e-mail address">http://localhost/register/verify/'.$v_code.'{/unwrap}</a></p>';
 			
-			$this->_send_mail($inp['ez_users']['email'], 'Verify your e-mail address!', $message);
+			//$this->_send_mail($inp['ez_users']['email'], 'Verify your e-mail address!', $message);
 
 			/*-----------------SMS CODE ************************************/
-			$v_code = $user_reg['email_code'];
+			$v_code= $user_reg['sms_code'];
 			//	send sms to user with the verification code.
 			$message_sms = 'Your PesaPay verification code is '.strtoupper($v_code).'.Enter this code on the verification screen provided. Thank-you for registering with us.';           
-            $this->_send_sms($inp['ez_users']['mobile_number'],  $message_sms); 			
+            echo $message_sms;
+            //$this->_send_sms($inp['ez_users']['mobile_number'],  $message_sms); 			
 		}
 
 		if ($user_reg['reg_ok'] == 'yes') {
-			redirect('mystore/reg_ok');
-		} else {
-			$data['disp_error'] = 'Error. Address the following issues to continue:<br />' .$user_reg['error'];
-		}	   
-		
+			$this->load->view('client/verify');
+		} else if($user_reg['reg_ok'] == 'no'){
+			$data['disp_error'] = 'Correct the following errors to continue:<br/>' .$user_reg['error'];
+		}else{	   
 		$data['main_content']='client/register';		
-
-		// Loading the Country model
+		// Loading the Country model drop down list 
 		$this->load->model('countries','countries');
-		// Sending the drop down list to the view
 		$data['countries'] = $this->countries->get_dropdownlist();
 
 		$this->load->view('client/includes/template',$data);
+		}
 	}
 
 	function reg_ok() {
@@ -106,7 +105,7 @@ class Register extends CI_Controller {
 		$config['mailtype'] = 'html';
 		$config['protocol'] = 'sendmail';
 		$this->email->initialize($config);
-		$this->email->from('admin+noreply@bizwidgets.biz', 'Friendly BizWidgets Bot');
+		$this->email->from('admin+noreply@pesapay.com', 'PesaPay Admin');	
 		$this->email->to($to);
 		$this->email->subject($subject);
 		$this->email->message($message);	
@@ -128,9 +127,11 @@ class Register extends CI_Controller {
         if ( count($results) ) {
           // These are the results if the request is well formed
           foreach($results as $result) {
-         /*   echo " Number: " .$result->number;
+         /* 
+         	echo " Number: " .$result->number;
             echo " Status: " .$result->status;
-            echo " Cost: "   .$result->cost."\n";*/
+            echo " Cost: "   .$result->cost."\n";
+          */
           }
         } else {
             // We only get here if we cannot process your request at all
@@ -141,11 +142,21 @@ class Register extends CI_Controller {
     }
 
 		
-	function verify() {
-		if ($this->ezauth->verify_email($this->uri->segment(3)) == true) {
+	function verify_email() {
+		if ($this->ezauth->verify_email($this->uri->segment(3))==true) {
 			$this->load->view('verify_ok');
 		} else {
 			redirect('mystore');
+		}
+	}
+
+	function verify_sms() {
+		if ($this->ezauth->verify_sms($this->input->post('verify_sms')) == true) {
+			$this->load->view('client/userpage');
+		} else {
+			$data['disp_error']='Incorrect verification code Entered.Retry';
+			$data['main_content']='client/verify';
+			$this->load->view('client/includes/template',$data);
 		}
 	}
 	

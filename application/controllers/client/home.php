@@ -1,6 +1,11 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Home extends CI_Controller {
+	function Home(){
+        parent::__construct();
+        $this->load->model('EzAuth_Model','ezauth');	
+    }
+
 /* Default homepage function */	
 	public function index()
 	{

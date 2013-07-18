@@ -38,9 +38,9 @@ class Merchant_paypal_express extends Merchant_paypal_base
 	public function default_settings()
 	{
 		return array(
-			'username' => 'alexan_1344935396_biz_api1.gmail.com',
-		    'password' => '1344935419',
-		    'signature' => 'ADBL7J4sy0plKstjr6nOpOG-Sxb1AslXM3g460wbzuad331c4KQ-Aiuw',
+			'username' => 'alexander.aluoch-facilitator_api1.gmail.com',
+		    'password' => '1371753867',
+		    'signature' => 'A.DbvpVmBuXskiGkBmOV3sivEgRXARw8Mmp19Nyfx3wctuCmKAwungdx',
 			'test_mode' => TRUE,
 			'solution_type' => array('type' => 'select', 'default' => 'Sole', 'options' => array(
 				'Sole' => 'merchant_solution_type_sole',

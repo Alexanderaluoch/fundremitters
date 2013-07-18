@@ -21,7 +21,7 @@ class Company extends CI_Controller {
 	    );
 	}
 
-	/*//	new remap function in 0.6, method is called including arguments now.	
+	//	new remap function in 0.6, method is called including arguments now.	
 	//  Used authorizes all activities by redirecting all functions to one common function called authorize
 	function _remap($method) {
 	        $auth = $this->ezauth->authorize($method, true);
@@ -34,27 +34,17 @@ class Company extends CI_Controller {
 	            // user login information incorrect, so show login screen again
 	            redirect('client/company/login');
 	        }
-	}*/
+	}
 
-	function login($data = array()) {        
-        // set required fields for validation
-        $rules['username'] = "required";
-        $this->validation->set_rules($rules);
-        $fields['username'] = "Username";
-        $this->validation->set_fields($fields);
-		
-        // if post variables are set, run validation
-        if ($this->validation->run()) {
+	function login($data = array()) {              	
             $login_ok = $this->ezauth->login();    // $login_ok is true or false depending on user login information
             if ($login_ok['authorize'] == true) {
-				$this->ezauth->remember_user();		// store cookie hash for auto-login
-				redirect('mystore');    		// if user logs in successfully, redirect to main page
+				$this->ezauth->remember_user();	 // store cookie hash for auto-login
+				redirect('client/company/userpage');
 			} else {
-				$data['error_string'] = $login_ok['error'];
+				$data['error_string'] = $login_ok['error'];	
+				$this->load->view('client/profile/login_view',$data);
 			}
-
-        }
-		$this->load->view('login_view',$data);
 	}
 
 	function logout() {
@@ -81,11 +71,11 @@ class Company extends CI_Controller {
 	}
 	public function userpage()
 	{
-		$data['main_content']='client/userpage';
-		$this->load->view('client/includes/template',$data);
+		$this->load->view('client/userpage/transactions');
 	}
 	public function register()
 	{
+
 		$data['main_content']='client/register';		
 
 		// Loading the Country model
