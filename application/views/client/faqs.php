@@ -1,7 +1,5 @@
-<div class="row-fluid">
+<div class="row-fluid register">
   <div class="span1">
-  	
-
   </div>
   <div class="span10">
     <div class="container-narrow">
