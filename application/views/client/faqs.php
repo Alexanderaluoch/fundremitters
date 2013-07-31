@@ -65,15 +65,10 @@
         Anim pariatur cliche...
       </div>
     </div>
+    </div>
   </div>
-</div>
 
       <hr>
-
-      
-
-      
-
     </div> <!-- /container -->
   </div>
   <div class="span1"></div>
@@ -81,3 +76,4 @@
 </div>
 
 
+    <script src="<?php echo base_url() ?>bootstrap/js/jquery.js"></script>

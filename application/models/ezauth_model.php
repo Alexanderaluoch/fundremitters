@@ -21,8 +21,7 @@ var $user		 			=	array();	//	user info in database
 		//session auth
 		if ($this->session->userdata('ez_user')) {
 			$this->user = $this->session->userdata('ez_user');
-		}
-		
+		}	
 	}
 	
 //	v 0.2
@@ -84,7 +83,7 @@ var $user		 			=	array();	//	user info in database
 			$userdata = $query->row();
 			//	check to see if user's account has been activated:--> This is a Back-up Measure
 			$v_code = md5(md5($userdata->mobile_number).md5($userdata->email).md5($userdata->register_date));
-			if ($userdata->sms_activationcode != $v_code) return array('authorize' => false, 'error' => 'Account not active.', 'code'	=>	'not_active');
+			if ($userdata->sms_activationcode != $v_code) return array('authorize' => false, 'error' => 'Account not active.', 'code'=>'not_active');
 			
 
 			//---- This is where we are giving the user an access key for different parts of the app ----------
@@ -106,19 +105,13 @@ var $user		 			=	array();	//	user info in database
 			if (empty($this_key) && $give_new_key == true) {
 				$this->new_access_key($ez->id, $this_prg, 'user');				
 				$ez->access_keys->$this_prg = 'user';
-			}
-			
-			
-			/* old way of checking for active key
-			if (!array_key_exists($this_key, $this->roles)) return array('authorize' => false, 'error' => 'Invalid access key for this program!', 'code'	=>	'nosuchkey');
-			*/
+			}		
 			
 			//	unset activation code
 			unset($ez->activation_code);
 			
 			$this->update_session($ez);
 			
-			//print_r($ez); //Checking the session
 
 			//Get the Balance of receiver_id
 			$query=$this->db->where('user_id', $ez->id);
@@ -126,26 +119,24 @@ var $user		 			=	array();	//	user info in database
 			$result = $query->row();
 			$account_balance = $result->account_balance;
 
-			/*
+			
 			//Get the Names of the Customer to be stored in the Session
 			$full_names=$this->get_entity_name($ez->id);
 
 			$session_data= array(
 				'user_id' => $ez->id,
 				'full_names'=>$full_names,
-				'mobile_number'=>$ez->mobile_number,
 				'access_keys'=>$ez->access_keys->$prg,
 				'authorize' => true,
 				'account_balance' => $account_balance,
 				'success'=>true
-				);*/
-			$session_data['authorize']= true;
+				);
 			return $session_data;
 
 		} else {
 			$session_data= array(
 				'authorize' => false,
-				 'error' => 'Invalid mobile_number/password combination!'
+				 'error' => 'Incorrect Email Address OR password!'
 				);
 			return $session_data;
 		}
@@ -182,7 +173,7 @@ var $user		 			=	array();	//	user info in database
 	function authorize($page, $give_new_key = false) {
 		$pp = $this->protected_pages; //Protected Pages; Not applicable in flexi-pay
 		$auth_ok = array('authorize' => true);
-		$auth_not_ok = array('authorize' => false, 'error' => 'Invalid user name/password for this program.');
+		$auth_not_ok = array('authorize' => false, 'error' => 'Please Login to access this module!');
 		$prg = $this->program;
 		
 		//	get user access keys
@@ -652,33 +643,15 @@ var $user		 			=	array();	//	user info in database
 		$query=$this->db->where('user_id', $query_id);
 		$query = $this->db->get('account');		
 		$result = $query->row();
-		$account_type_id = $result->account_type_id;
 
-		//Merchant
-		if($account_type_id == 1){
-			$query=$this->db->where('user_id', $query_id);
-			$query = $this->db->get('merchant_description');		
-			$result = $query->row();
-			$merchant_name = $result->business_name;	
-			return $merchant_name;
-		//Agent
-		}else if ($account_type_id == 2){
-			$query=$this->db->where('user_id', $query_id);
-			$query = $this->db->get('agent_description');		
-			$result = $query->row();
-			$agent_name = $result->business_name;
-			return $agent_name;	
-		//Customer
-		}else{
-			$query=$this->db->where('id', $query_id);
-			$query = $this->db->get('ez_users');		
-			$result = $query->row();
-			$first_name = $result->first_name;	
-			$last_name = $result->last_name;
+		$query=$this->db->where('id', $query_id);
+		$query = $this->db->get('ez_users');		
+		$result = $query->row();
+		$first_name = $result->first_name;	
+		$last_name = $result->last_name;
 
-			$full_names= $first_name . ' ' .$last_name;
-			return $full_names;	
-		}
+		$full_names= $first_name . ' ' .$last_name;
+		return $full_names;	
 	}
 }	
 ?>

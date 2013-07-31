@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Example
  *
@@ -6,7 +6,7 @@
  * all done with a hardcoded array.
  *
  * @package		CodeIgniter
- * @subpackage	Rest Server
+ * @subpackage	Register
  * @category	Controller
  * @author		Tom Kimani adopted from Ezauth
  * @link		http://tomkimani.wordpress.com/
@@ -22,28 +22,6 @@ class Register extends CI_Controller {
 		
 	function index() {
 		$data = array();
-
-		/*
-		$rules = array(
-//			'username'		=>	'trim|required|min_length[5]|max_length[30]',
-			'email'			=>	'trim|required|valid_email',
-			'password'		=>	'required|matches[password2]',
-			'password2'		=>	'required',
-			'first_name'	=>	'trim',
-			'last_name'		=>	'trim'
-		);
-		$fields = array(
-//			'username'		=>	'Username',
-			'email'			=>	'E-mail address',
-			'password'		=>	'Password',
-			'password2'		=>	'Password Confirmation',
-			'first_name'	=>	'First Name',
-			'last_name'		=>	'Last Name'
-		);
-		$this->validation->set_rules($rules);
-		
-		if ($this->validation->run()) {
-		*/
 		
 		$inp = array(
 			'ez_users'	=>	array(
@@ -81,17 +59,20 @@ class Register extends CI_Controller {
             echo $message_sms;
             //$this->_send_sms($inp['ez_users']['mobile_number'],  $message_sms); 			
 		}
-
-		if ($user_reg['reg_ok'] == 'yes') {
+			if ($user_reg['reg_ok'] == 'yes') {
 			$this->load->view('client/verify');
 		} else if($user_reg['reg_ok'] == 'no'){
 			$data['disp_error'] = 'Correct the following errors to continue:<br/>' .$user_reg['error'];
+			$data['main_content']='client/register';		
+			// Loading the Country model drop down list 
+			$this->load->model('countries','countries');
+			$data['countries'] = $this->countries->get_dropdownlist();
+			$this->load->view('client/includes/template',$data);
 		}else{	   
 		$data['main_content']='client/register';		
 		// Loading the Country model drop down list 
 		$this->load->model('countries','countries');
 		$data['countries'] = $this->countries->get_dropdownlist();
-
 		$this->load->view('client/includes/template',$data);
 		}
 	}
@@ -152,7 +133,7 @@ class Register extends CI_Controller {
 
 	function verify_sms() {
 		if ($this->ezauth->verify_sms($this->input->post('verify_sms')) == true) {
-			$this->load->view('client/userpage');
+			redirect('client/company/userpage');
 		} else {
 			$data['disp_error']='Incorrect verification code Entered.Retry';
 			$data['main_content']='client/verify';

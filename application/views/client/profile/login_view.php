@@ -4,9 +4,11 @@
 	   <hr/>
         <div class="span4 box well">
             <div class="content-wrap">
-                <?=form_open('client/company/login');?>
-		         <?//=$cookie_info= array();
-		         //$cookie_info=$this->ezauth->fetch_userinfo();?>
+                <form action="login" method="POST">
+                <?php $cookie_info= array();
+                  $cookie_info=$this->ezauth->fetch_userinfo();
+                  if(isset($data_error)){echo $data_error;}
+                  ?>
                 <div class="log"><strong>LOGIN</strong></div>
                 <?php if (isset($error_string)){echo $error_string;}?>
                 <input class="span12" type="text" placeholder="Email Address" name="username">
@@ -17,6 +19,7 @@
                     <label for="remember-me">stay signed In</label>
                 </div>
                 <button class="btn btn-primary login" type="submit">Log in</button>
+                </form>
             </div>
         </div>
     </div>

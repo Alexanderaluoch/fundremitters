@@ -36,22 +36,22 @@ class Company extends CI_Controller {
 	        }
 	}
 
-	function login($data = array()) {              	
-            $login_ok = $this->ezauth->login();    // $login_ok is true or false depending on user login information
-            if ($login_ok['authorize'] == true) {
-				$this->ezauth->remember_user();	 // store cookie hash for auto-login
-				redirect('client/company/userpage');
-			} else {
-				$data['error_string'] = $login_ok['error'];	
-				$this->load->view('client/profile/login_view',$data);
-			}
+	function login($data = array()) {  
+        $login_ok = $this->ezauth->login();    // $login_ok is true or false depending on user login information
+        if ($login_ok['authorize'] == true) {
+			$this->ezauth->remember_user();	 // store cookie hash for auto-login
+			redirect('client/company/userpage');
+		} else {
+			$data=array();
+			$data['error_string']=$login_ok['error'];	
+			$this->load->view('client/profile/login_view',$data);
+		}
 	}
 
 	function logout() {
 	$this->ezauth->logout();
 	redirect('client/company/login');
 	}
-
 
 	public function index()
 	{

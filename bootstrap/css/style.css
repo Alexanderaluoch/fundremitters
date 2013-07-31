@@ -32,6 +32,9 @@ header .top .sign-in{
 .container-splash{
 	background-color: #ffcfc;
 }
+.container-splash{
+  height:50px;
+}
 .splash {
 width: 1350px;
 background:url("../img/face.png") no-repeat center;
@@ -268,8 +271,9 @@ margin-top: 25px; }
 
 /*Sidebar*/
 #sidebar{
-  width:200px;
+  width:180px;
   margin-left: 0px;
+  border-right: 2px dotted #cccccc;
 }
 #sidebar ul{
   text-align: center;
@@ -284,7 +288,7 @@ margin-top: 25px; }
 
 /*UserPage-Content*/
 #userpage-content{
-  margin-left: 0px;
+  margin-left: 10px;
 }
 
 

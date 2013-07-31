@@ -42,8 +42,14 @@
                ?>
               <div class="span8 sign-in">
                     <div class="user-actions row pull-right">
-                      <div class="span2"><strong> Welcome: &nbsp</strong><a href="#">Tom Kimani</a></div>
-                      <div class="span2"><a href=""><i class="icon-off icon-large"></i>&nbsp Logout</a></div>
+                     <div class="span3"><strong> Welcome: &nbsp</strong><a href="#">
+                          <?php if($this->session->userdata('ez_user')){
+                           $session_data=$this->session->userdata('ez_user');
+                           $full_names = $session_data->first_name."&nbsp".$session_data->last_name;
+                           echo $full_names;
+                          }?></a>
+                      </div>
+                      <div class="span2"><a href="<?php echo base_url();?>index.php/client/company/logout"><i class="icon-off icon-large"></i>&nbsp Logout</a></div>
                     </div>
               </div>
 

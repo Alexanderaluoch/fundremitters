@@ -1,14 +1,13 @@
 <?php $this->load->view('client/userpage/content-top'); ?>
 <?php $this->load->view('client/userpage/sidebar'); ?>
 
-<div class="row-fluid">
+<div class="span10" id="userpage-content">
 	<ul class="nav nav-tabs">
 	  <li class="active">
-	    <a href="#">PayPal</a>
+	 	<a href="#"><img src="<?php echo base_url();?>img/Logo/paypal.png" width="70px" height="100px"></a>
 	  </li>
 	  <li>
 	 	<a href="#"><img src="<?php echo base_url();?>img/Logo/mpesa.jpg" width="70px" height="100px"></a>
-
 	  </li>
 	</ul>
   <div class="span4">
@@ -25,5 +24,6 @@
 	  </fieldset>
 </div>
 </div>
-
+ 
+ <script src="<?php echo base_url() ?>bootstrap/js/jquery.js"></script>
 <?php $this->load->view('client/includes/footer'); ?>

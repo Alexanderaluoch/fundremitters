@@ -1,7 +1,7 @@
 <?php $this->load->view('client/userpage/content-top'); ?>
 <?php $this->load->view('client/userpage/sidebar'); ?>
 
-<div class="row-fluid">
+<div class="span8">
   <div class="span4">
   	<h2>Instructions</h2>
   	<p>Deposit money to the PayPal account and it will be reflected in your account in the portal
